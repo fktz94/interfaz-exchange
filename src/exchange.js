@@ -1,3 +1,9 @@
 /// <reference types="jquery" />
 
-const $header = $("h1");
+const fechaMaximaAElegir = document.getElementById("calendario");
+fechaMaximaAElegir.max = new Date().toISOString().split("T")[0];
+
+//
+
+const $fecha = $("#fecha");
+const $boton = $("#hoy");

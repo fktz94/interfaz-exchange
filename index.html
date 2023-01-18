@@ -8,13 +8,76 @@
     <title>Cuánto cotiza hoy?</title>
   </head>
   <body class="bg-cyan-600">
-    <h1 class="mt-8 text-center font-mono text-blue-900">
+    <h1
+      class="mt-8 text-center text-4xl font-mono font-bold tracking-wide underline underline-offset-8 text-blue-900"
+    >
       Bienvenido a ¿Cuánto cotiza hoy?
     </h1>
-    <h2>
-      La interfaz que te permite chequear tipos de cambio de hoy e históricos
+    <h2 class="text-center font-mono mt-8 mx-64 text-blue-900">
+      La interfaz que te permite comparar divisas <br />
+      con precios actualizados e históricos
     </h2>
-    <input type="date" name="date" id="fecha" />
+
+    <div class="mx-10 mt-5 flex" id="componentes">
+      <div class="flex-1 text-center" id="selector-de-divisas">
+        <label
+          class="block font-mono text-lg font-medium border mx-1 py-1 border-blue-900 text-blue-900"
+          >Elija la divisa a comparar:</label
+        >
+        <select
+          class="mt-10 px-8 py-2"
+          name="menu-selector-divisas"
+          id="menu-selector-divisas"
+        >
+          <option value="">USD</option>
+        </select>
+      </div>
+
+      <div class="flex-1 text-center relative" id="flex-calendario">
+        <label
+          class="block font-mono text-lg font-medium border mx-1 py-1 border-blue-900 text-blue-900"
+          >Elija la fecha:</label
+        >
+        <div class="grid grid-cols-2">
+          <button
+            type="button"
+            id="buscar-hoy"
+            class="w-48 h-12 m-auto font-medium rounded-sm bg-slate-100 hover:bg-slate-300 active:bg-slate-400"
+          >
+            Valor actual
+          </button>
+          <div
+            class="h-auto relative flex flex-col items-center my-2 border-l border-blue-900"
+          >
+            <span class="text-sm font-medium text-blue-900"
+              >O en el calendario: <br />
+              (hasta el 4/01/1999)
+            </span>
+            <input
+              type="date"
+              min="1999-01-04"
+              id="calendario"
+              class="my-3 mx-5 w-fit p-1 backdep"
+            />
+            <button
+              type="button"
+              id="buscar-por-fecha"
+              class="font-medium rounded-sm py-1 px-5 bg-slate-100 hover:bg-slate-300 active:bg-slate-400"
+            >
+              Buscar por fecha
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tablero-de-conversiones">
+      <h3
+        class="mt-8 text-center text-4xl font-mono font-semibold tracking-wide underline underline-offset-8 text-blue-900"
+      >
+        Conversion del USD al día: 22/01/2002
+      </h3>
+    </div>
 
     <script
       type="text/javascript"

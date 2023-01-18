@@ -1,0 +1,26 @@
+{
+  "name": "interfaz-exchange",
+  "version": "1.0.0",
+  "description": "interfaz para intercambio de divisas usando una API",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fktz94/interfaz-exchange.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fktz94/interfaz-exchange/issues"
+  },
+  "homepage": "https://github.com/fktz94/interfaz-exchange#readme",
+  "devDependencies": {
+    "@types/jquery": "^3.5.16",
+    "tailwindcss": "^3.2.4"
+  },
+  "dependencies": {
+    "jquery": "^3.6.3"
+  }
+}

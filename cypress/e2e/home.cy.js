@@ -1,10 +1,25 @@
-/// <reference types="cypress" >
+/// <reference types="Cypress" >
 
 const LINK = "http://127.0.0.1:8080";
 
 describe("home", () => {
-  it("contiene titulo", () => {
+  beforeEach(() => {
     cy.visit(LINK);
-    cy.get("h1").contains("Bienvenido a ¿Cuánto cotiza?");
+  });
+
+  it("contiene titulo", () => {
+    cy.getByData("titulo").contains("Bienvenido a ¿Cuánto cotiza?");
+  });
+
+  it("contiene subtitulo", () => {
+    cy.getByData("subtitulo").contains(
+      "La interfaz que te permite comparar divisas con precios actualizados e históricos"
+    );
+  });
+
+  it("se asegura que cargue todas las divisas", () => {
+    cy.getByData("menu-selector-divisas")
+      .find("option")
+      .should("have.length", 31);
   });
 });

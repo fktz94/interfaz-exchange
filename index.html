@@ -10,11 +10,15 @@
   </head>
   <body class="bg-cyan-600">
     <h1
+      data-test="titulo"
       class="mt-8 text-center text-4xl font-mono font-bold tracking-wide underline underline-offset-8 text-blue-900"
     >
       Bienvenido a ¿Cuánto cotiza?
     </h1>
-    <h2 class="text-center font-mono mt-8 mx-64 text-blue-900">
+    <h2
+      data-test="subtitulo"
+      class="text-center font-mono mt-8 mx-64 text-blue-900"
+    >
       La interfaz que te permite comparar divisas <br />
       con precios actualizados e históricos
     </h2>
@@ -26,6 +30,7 @@
           >Elija la divisa a comparar:</label
         >
         <select
+          data-test="menu-selector-divisas"
           class="mt-10 px-8 py-2"
           name="menu-selector-divisas"
           id="menu-selector-divisas"
@@ -92,7 +97,7 @@
     </div>
 
     <div id="referencias" class="mx-10 mt-16 mb-6 text-sm">
-      <span class="font-mono tracking-wider"></span>
+      <span class="font-mono tracking-wider text-slate-900"></span>
     </div>
 
     <script

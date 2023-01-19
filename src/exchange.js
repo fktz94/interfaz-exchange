@@ -22,6 +22,7 @@ fetch(`${LINK}/currencies`)
   .catch((error) => console.log(error));
 
 // La function que sigue es la manera que encontré de eliminar los Options vacios que me genera el fetch de las divisas (entre cada una agregada me deja una vacía)
+
 // Creería que no es una buena práctica porque dependo del tiempo de conexión (por el setTimeout)
 
 function vaciarOptionsVacias() {

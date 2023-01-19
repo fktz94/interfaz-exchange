@@ -1,3 +1,7 @@
 * {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+.error {
+  border: 2px solid red;
 }

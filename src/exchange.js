@@ -80,31 +80,57 @@ function mostrarCuadroComparativoPorCalendario() {
   }
 
   const $fechaElegida = $("#calendario").val();
-
-  console.log();
   const $divisaElegida = $("#menu-selector-divisas").val();
+  const $titulo = $("#tablero-de-conversiones h3");
 
-  fetch(`${LINK}/${$fechaElegida}?from=${$divisaElegida}`)
-    .then((respuesta) => respuesta.json())
-    .then((respuestaJSON) => {
-      $("#tablero-de-conversiones h3").text(
-        `El valor del ${$divisaElegida} el día ${$fechaElegida
-          .split("-")
-          .reverse()
-          .toString()
-          .replaceAll(",", "/")} fue de:`
-      );
-
-      Object.keys(respuestaJSON.rates).forEach((valor) => {
-        $("#lista-de-conversiones").append(
-          $(
-            `<li class="text-blue-900 mt-4"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`
-          )
+  if (validarCalendario($fechaElegida, $titulo)) {
+    fetch(`${LINK}/${$fechaElegida}?from=${$divisaElegida}`)
+      .then((respuesta) => respuesta.json())
+      .then((respuestaJSON) => {
+        $titulo.text(
+          `El valor del ${$divisaElegida} el día ${$fechaElegida
+            .split("-")
+            .reverse()
+            .toString()
+            .replaceAll(",", "/")} fue de:`
         );
+
+        Object.keys(respuestaJSON.rates).forEach((valor) => {
+          $("#lista-de-conversiones").append(
+            $(
+              `<li class="text-blue-900 mt-4"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`
+            )
+          );
+        });
+        setTimeout(vaciarLisVacias, 500);
       });
-      setTimeout(vaciarLisVacias, 500);
-    });
+  }
 }
 
 const $valorCalendario = $("#buscar-por-fecha");
 $valorCalendario.on("click", mostrarCuadroComparativoPorCalendario);
+
+function validarCalendario(calendario, titulo) {
+  const fechaElegida = new Date(calendario);
+  const fechaActual = new Date();
+  const fechaMinima = new Date("1999", "01", "04");
+
+  if (fechaElegida < fechaMinima) {
+    $("#calendario").addClass("error");
+    if (titulo) {
+      titulo.text("");
+    }
+    return false;
+  } else if (fechaElegida > fechaActual) {
+    $("#calendario").addClass("error");
+    if (titulo) {
+      titulo.text("");
+    }
+    return false;
+  } else {
+    if ($("#calendario").hasClass("error")) {
+      $("#calendario").removeClass("error");
+    }
+  }
+  return true;
+}

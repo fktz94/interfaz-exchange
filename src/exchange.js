@@ -21,8 +21,8 @@ fetch(`${LINK}/currencies`)
   })
   .catch((error) => console.log(error));
 
-// La function que sigue es la manera que encontré de eliminar los Options vacios que me genera el fetch de las divisas
-// Entiendo que no es una buena práctica porque dependo del tiempo de conexión (por el setTimeout)
+// La function que sigue es la manera que encontré de eliminar los Options vacios que me genera el fetch de las divisas (entre cada una agregada me deja una vacía)
+// Creería que no es una buena práctica porque dependo del tiempo de conexión (por el setTimeout)
 
 function vaciarOptionsVacias() {
   const $divisas = $("#menu-selector-divisas option");
@@ -46,7 +46,7 @@ function mostrarCuadroComparativoActual() {
     .then((respuesta) => respuesta.json())
     .then((respuestaJSON) => {
       $("#tablero-de-conversiones h3").text(
-        `El valor del ${$divisaElegida} actual es:`
+        `El valor del ${$divisaElegida} actual es de:`
       );
       Object.keys(respuestaJSON.rates).forEach((valor) => {
         $("#lista-de-conversiones").append(
@@ -63,6 +63,7 @@ const $valorHoy = $("#valor-hoy");
 $valorHoy.on("click", mostrarCuadroComparativoActual);
 
 // Mismo problema que con las options
+
 function vaciarLisVacias() {
   const $divisas = $("#lista-de-conversiones li");
   $divisas.each((i, divisa) => {
@@ -72,6 +73,7 @@ function vaciarLisVacias() {
   });
 }
 setTimeout(vaciarLisVacias, 500);
+
 //
 
 function mostrarCuadroComparativoPorCalendario() {

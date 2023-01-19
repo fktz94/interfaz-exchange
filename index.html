@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./dist/output.css" />
+    <link rel="stylesheet" href="./src/exchange.css" />
     <title>Cuánto cotiza hoy?</title>
   </head>
   <body class="bg-cyan-600">
@@ -28,9 +29,7 @@
           class="mt-10 px-8 py-2"
           name="menu-selector-divisas"
           id="menu-selector-divisas"
-        >
-          <option value="">USD</option>
-        </select>
+        ></select>
       </div>
 
       <div class="flex-1 text-center relative" id="flex-calendario">
@@ -41,10 +40,10 @@
         <div class="grid grid-cols-2">
           <button
             type="button"
-            id="buscar-hoy"
-            class="w-48 h-12 m-auto font-medium rounded-sm bg-slate-100 hover:bg-slate-300 active:bg-slate-400"
+            id="valor-hoy"
+            class="w-48 h-12 m-auto font-medium underline underline-offset-1 rounded-md border bg-slate-100 hover:bg-slate-200 hover:border-black active:bg-slate-300"
           >
-            Valor actual
+            Valor HOY
           </button>
           <div
             class="h-auto relative flex flex-col items-center my-2 border-l border-blue-900"
@@ -57,12 +56,12 @@
               type="date"
               min="1999-01-04"
               id="calendario"
-              class="my-3 mx-5 w-fit p-1 backdep"
+              class="my-3 mx-5 w-fit p-2 backdep"
             />
             <button
               type="button"
               id="buscar-por-fecha"
-              class="font-medium rounded-sm py-1 px-5 bg-slate-100 hover:bg-slate-300 active:bg-slate-400"
+              class="font-medium rounded-md py-1 px-5 border bg-slate-100 hover:bg-slate-200 hover:border-black active:bg-slate-300"
             >
               Buscar por fecha
             </button>
@@ -71,12 +70,29 @@
       </div>
     </div>
 
-    <div id="tablero-de-conversiones">
-      <h3
-        class="mt-8 text-center text-4xl font-mono font-semibold tracking-wide underline underline-offset-8 text-blue-900"
+    <div class="text-center my-12">
+      <a
+        href="#referencias"
+        class="p-5 rounded-full h-12 font-mono tracking-widest shadow border bg-slate-100 hover:bg-slate-200 hover:border-black active:bg-slate-300"
+        >Referencias</a
       >
-        Conversion del USD al día: 22/01/2002
-      </h3>
+    </div>
+
+    <div id="tablero-de-conversiones" class="my-16">
+      <h3
+        class="my-10 text-center text-4xl font-mono font-semibold tracking-wide underline underline-offset-8 text-blue-900"
+      ></h3>
+
+      <div>
+        <ul
+          class="text-center mt-5 text-2xl font-mono"
+          id="lista-de-conversiones"
+        ></ul>
+      </div>
+    </div>
+
+    <div id="referencias" class="mx-10 mt-16 mb-6 text-sm">
+      <span class="font-mono tracking-wider"></span>
     </div>
 
     <script

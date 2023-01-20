@@ -91,7 +91,7 @@ function mostrarCuadroComparativoPorCalendario() {
       .then((respuesta) => respuesta.json())
       .then((respuestaJSON) => {
         $titulo.text(
-          `El valor del ${$divisaElegida} el día ${$fechaElegida
+          `El valor del "${$divisaElegida}" el día ${$fechaElegida
             .split("-")
             .reverse()
             .toString()
@@ -117,8 +117,14 @@ function validarCalendario(calendario, titulo) {
   const fechaElegida = new Date(calendario);
   const fechaActual = new Date();
   const fechaMinima = new Date("1999", "01", "04");
-
+  console.log(isNaN(fechaElegida));
   if (fechaElegida < fechaMinima) {
+    $("#calendario").addClass("error");
+    if (titulo) {
+      titulo.text("");
+    }
+    return false;
+  } else if (isNaN(fechaElegida)) {
     $("#calendario").addClass("error");
     if (titulo) {
       titulo.text("");

@@ -13,7 +13,6 @@ fetch(`${LINK}/currencies`)
     const $selector = $("#menu-selector-divisas");
     Object.keys(respuestaJSON).forEach((moneda) => {
       $selector.append($(`<option value="${moneda}">${moneda}<option/>`));
-      referencias += ``;
       $("#referencias span").append(
         ` <strong class="text-lg">${moneda}:</strong> ${respuestaJSON[moneda]}; `
       );
@@ -33,7 +32,7 @@ function vaciarOptionsVacias() {
     }
   });
 }
-setTimeout(vaciarOptionsVacias, 500);
+setTimeout(vaciarOptionsVacias, 2000);
 
 //
 
@@ -42,22 +41,27 @@ function mostrarCuadroComparativoActual() {
     $("#lista-de-conversiones li").each((i, li) => li.remove());
   }
 
+  if ($("#calendario").hasClass("error")) {
+    $("#calendario").removeClass("error");
+  }
+
   const $divisaElegida = $("#menu-selector-divisas").val();
   fetch(`${LINK}/latest?from=${$divisaElegida}`)
     .then((respuesta) => respuesta.json())
     .then((respuestaJSON) => {
       $("#tablero-de-conversiones h3").text(
-        `El valor del ${$divisaElegida} actual es de:`
+        `El valor del '${$divisaElegida}' actual es de:`
       );
+
       Object.keys(respuestaJSON.rates).forEach((valor) => {
         $("#lista-de-conversiones").append(
           $(
-            `<li class="text-blue-900 mt-4"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`
+            `<li class="mt-4 text-left text-blue-900"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`
           )
         );
       });
     });
-  setTimeout(vaciarLisVacias, 500);
+  setTimeout(vaciarLisVacias, 2000);
 }
 
 const $valorHoy = $("#valor-hoy");
@@ -73,7 +77,7 @@ function vaciarLisVacias() {
     }
   });
 }
-setTimeout(vaciarLisVacias, 500);
+setTimeout(vaciarLisVacias, 2000);
 
 //
 
@@ -91,7 +95,7 @@ function mostrarCuadroComparativoPorCalendario() {
       .then((respuesta) => respuesta.json())
       .then((respuestaJSON) => {
         $titulo.text(
-          `El valor del "${$divisaElegida}" el día ${$fechaElegida
+          `El valor del '${$divisaElegida}' el día ${$fechaElegida
             .split("-")
             .reverse()
             .toString()
@@ -105,7 +109,7 @@ function mostrarCuadroComparativoPorCalendario() {
             )
           );
         });
-        setTimeout(vaciarLisVacias, 500);
+        setTimeout(vaciarLisVacias, 2000);
       });
   }
 }
@@ -117,7 +121,7 @@ function validarCalendario(calendario, titulo) {
   const fechaElegida = new Date(calendario);
   const fechaActual = new Date();
   const fechaMinima = new Date("1999", "01", "04");
-  console.log(isNaN(fechaElegida));
+
   if (fechaElegida < fechaMinima) {
     $("#calendario").addClass("error");
     if (titulo) {

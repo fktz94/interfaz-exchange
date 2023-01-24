@@ -65,6 +65,20 @@ describe("home", () => {
       .should("not.be.visible");
   });
 
+  it("se asegura que devuelva error por una fecha vacía", () => {
+    cy.getByData("menu-selector-divisas")
+      .select(Math.floor(Math.random() * 31))
+      .getByData("calendario")
+      .getByData("buscar-por-fecha")
+      .click()
+      .getByData("calendario")
+      .should("have.class", "error")
+      .getByData("titulo-tablero")
+      .should("not.be.visible")
+      .getByData("lista-de-conversiones")
+      .should("not.be.visible");
+  });
+
   it("se asegura que el link referencias funcione", () => {
     cy.getByData("ir-a-referencias").click();
     cy.url().should("include", "/#referencias");

@@ -11,18 +11,19 @@ fetch(`${LINK}/currencies`)
   .then((respuesta) => respuesta.json())
   .then((respuestaJSON) => {
     const $selector = $("#menu-selector-divisas");
+
     Object.keys(respuestaJSON).forEach((moneda) => {
       $selector.append($(`<option value="${moneda}">${moneda}<option/>`));
       $("#referencias span").append(
         ` <strong class="text-lg">${moneda}:</strong> ${respuestaJSON[moneda]}; `
       );
     });
+    vaciarOptionsVacias();
   })
+
   .catch((error) => console.log(error));
 
 // La function que sigue es la manera que encontré de eliminar los Options vacios que me genera el fetch de las divisas (entre cada una agregada me deja una vacía)
-
-// Creería que no es una buena práctica porque dependo del tiempo de conexión (por el setTimeout)
 
 function vaciarOptionsVacias() {
   const $divisas = $("#menu-selector-divisas option");
@@ -32,9 +33,6 @@ function vaciarOptionsVacias() {
     }
   });
 }
-setTimeout(vaciarOptionsVacias, 2000);
-
-//
 
 function mostrarCuadroComparativoActual() {
   if ($("#lista-de-conversiones li").length > 0) {
@@ -60,8 +58,8 @@ function mostrarCuadroComparativoActual() {
           )
         );
       });
+      vaciarLisVacias();
     });
-  setTimeout(vaciarLisVacias, 2000);
 }
 
 const $valorHoy = $("#valor-hoy");
@@ -77,7 +75,6 @@ function vaciarLisVacias() {
     }
   });
 }
-setTimeout(vaciarLisVacias, 2000);
 
 //
 
@@ -109,7 +106,7 @@ function mostrarCuadroComparativoPorCalendario() {
             )
           );
         });
-        setTimeout(vaciarLisVacias, 2000);
+        vaciarLisVacias();
       });
   }
 }

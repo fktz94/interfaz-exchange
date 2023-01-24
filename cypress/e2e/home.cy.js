@@ -79,6 +79,10 @@ describe("home", () => {
       .should("not.be.visible");
   });
 
+  it("se asegura que muestre las referencias", () => {
+    cy.getByData("referencias").get("strong").should("have.length", 31);
+  });
+
   it("se asegura que el link referencias funcione", () => {
     cy.getByData("ir-a-referencias").click();
     cy.url().should("include", "/#referencias");

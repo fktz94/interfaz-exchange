@@ -20,7 +20,6 @@ fetch(`${LINK}/currencies`)
     });
     vaciarOptionsVacias();
   })
-
   .catch((error) => console.log(error));
 
 // La function que sigue es la manera que encontré de eliminar los Options vacios que me genera el fetch de las divisas (entre cada una agregada me deja una vacía)

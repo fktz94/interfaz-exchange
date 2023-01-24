@@ -48,6 +48,7 @@
         >
         <div class="grid grid-cols-2">
           <button
+            data-test="valor-hoy"
             type="button"
             id="valor-hoy"
             class="w-48 h-12 m-auto font-medium underline underline-offset-1 rounded-md border bg-slate-100 hover:bg-slate-200 hover:border-black active:bg-slate-300"
@@ -62,12 +63,14 @@
               (hasta el 4/01/1999)
             </span>
             <input
+              data-test="calendario"
               type="date"
               min="1999-01-04"
               id="calendario"
               class="my-3 mx-5 w-fit p-2 backdep"
             />
             <button
+              data-test="buscar-por-fecha"
               type="button"
               id="buscar-por-fecha"
               class="font-medium rounded-md py-1 px-5 border bg-slate-100 hover:bg-slate-200 hover:border-black active:bg-slate-300"
@@ -81,6 +84,7 @@
 
     <div class="text-center my-12">
       <a
+      data-test="ir-a-referencias"
         href="#referencias"
         class="p-5 rounded-full h-12 font-mono tracking-widest shadow border bg-slate-100 hover:bg-slate-200 hover:border-black active:bg-slate-300"
         >Referencias</a
@@ -89,11 +93,13 @@
 
     <div id="tablero-de-conversiones" class="my-16">
       <h3
+        data-test="titulo-tablero"
         class="my-10 text-center text-4xl font-mono font-semibold tracking-wide underline underline-offset-8 text-blue-900"
       ></h3>
 
       <div>
         <ul
+          data-test="lista-de-conversiones"
           class="m-auto mt-5 w-fit text-2xl font-mono"
           id="lista-de-conversiones"
         ></ul>

@@ -1,21 +1,22 @@
 /// <reference types="jquery" />
 
-const fechaMaximaAElegir = document.getElementById("calendario");
-fechaMaximaAElegir.max = new Date().toISOString().split("T")[0];
+const fechaMaximaAElegir = document.getElementById('calendario');
+
+fechaMaximaAElegir.max = new Date().toISOString().split('T')[0];
 
 //
 
-const LINK = "https://api.frankfurter.app";
+const LINK = 'https://api.frankfurter.app';
 
 fetch(`${LINK}/currencies`)
   .then((respuesta) => respuesta.json())
   .then((respuestaJSON) => {
-    const $selector = $("#menu-selector-divisas");
+    const $selector = $('#menu-selector-divisas');
 
     Object.keys(respuestaJSON).forEach((moneda) => {
       $selector.append($(`<option value="${moneda}">${moneda}<option/>`));
-      $("#referencias span").append(
-        ` <strong class="text-lg">${moneda}:</strong> ${respuestaJSON[moneda]}; `
+      $('#referencias span').append(
+        ` <strong class="text-lg">${moneda}:</strong> ${respuestaJSON[moneda]}; `,
       );
     });
     vaciarOptionsVacias();
@@ -25,7 +26,7 @@ fetch(`${LINK}/currencies`)
 // La function que sigue es la manera que encontré de eliminar los Options vacios que me genera el fetch de las divisas (entre cada una agregada me deja una vacía)
 
 function vaciarOptionsVacias() {
-  const $divisas = $("#menu-selector-divisas option");
+  const $divisas = $('#menu-selector-divisas option');
   $divisas.each((i, divisa) => {
     if (divisa.innerText.length === 0) {
       divisa.remove();
@@ -34,40 +35,40 @@ function vaciarOptionsVacias() {
 }
 
 function mostrarCuadroComparativoActual() {
-  if ($("#lista-de-conversiones li").length > 0) {
-    $("#lista-de-conversiones li").each((i, li) => li.remove());
+  if ($('#lista-de-conversiones li').length > 0) {
+    $('#lista-de-conversiones li').each((i, li) => li.remove());
   }
 
-  if ($("#calendario").hasClass("error")) {
-    $("#calendario").removeClass("error");
+  if ($('#calendario').hasClass('error')) {
+    $('#calendario').removeClass('error');
   }
 
-  const $divisaElegida = $("#menu-selector-divisas").val();
+  const $divisaElegida = $('#menu-selector-divisas').val();
   fetch(`${LINK}/latest?from=${$divisaElegida}`)
     .then((respuesta) => respuesta.json())
     .then((respuestaJSON) => {
-      $("#tablero-de-conversiones h3").text(
-        `El valor del '${$divisaElegida}' actual es de:`
+      $('#tablero-de-conversiones h3').text(
+        `El valor del '${$divisaElegida}' actual es de:`,
       );
 
       Object.keys(respuestaJSON.rates).forEach((valor) => {
-        $("#lista-de-conversiones").append(
+        $('#lista-de-conversiones').append(
           $(
-            `<li class="mt-4 text-left text-blue-900"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`
-          )
+            `<li class="mt-4 text-left text-blue-900"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`,
+          ),
         );
       });
       vaciarLisVacias();
     });
 }
 
-const $valorHoy = $("#valor-hoy");
-$valorHoy.on("click", mostrarCuadroComparativoActual);
+const $valorHoy = $('#valor-hoy');
+$valorHoy.on('click', mostrarCuadroComparativoActual);
 
 // Mismo problema que con las options
 
 function vaciarLisVacias() {
-  const $divisas = $("#lista-de-conversiones li");
+  const $divisas = $('#lista-de-conversiones li');
   $divisas.each((i, divisa) => {
     if (divisa.innerText.length === 0) {
       divisa.remove();
@@ -78,13 +79,13 @@ function vaciarLisVacias() {
 //
 
 function mostrarCuadroComparativoPorCalendario() {
-  if ($("#lista-de-conversiones li").length > 0) {
-    $("#lista-de-conversiones li").each((i, li) => li.remove());
+  if ($('#lista-de-conversiones li').length > 0) {
+    $('#lista-de-conversiones li').each((i, li) => li.remove());
   }
 
-  const $fechaElegida = $("#calendario").val();
-  const $divisaElegida = $("#menu-selector-divisas").val();
-  const $titulo = $("#tablero-de-conversiones h3");
+  const $fechaElegida = $('#calendario').val();
+  const $divisaElegida = $('#menu-selector-divisas').val();
+  const $titulo = $('#tablero-de-conversiones h3');
 
   if (validarCalendario($fechaElegida, $titulo)) {
     fetch(`${LINK}/${$fechaElegida}?from=${$divisaElegida}`)
@@ -92,17 +93,17 @@ function mostrarCuadroComparativoPorCalendario() {
       .then((respuestaJSON) => {
         $titulo.text(
           `El valor del '${$divisaElegida}' el día ${$fechaElegida
-            .split("-")
+            .split('-')
             .reverse()
             .toString()
-            .replaceAll(",", "/")} fue de:`
+            .replaceAll(',', '/')} fue de:`,
         );
 
         Object.keys(respuestaJSON.rates).forEach((valor) => {
-          $("#lista-de-conversiones").append(
+          $('#lista-de-conversiones').append(
             $(
-              `<li class="text-blue-900 mt-4"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`
-            )
+              `<li class="text-blue-900 mt-4"><strong>${valor}:</strong> ${respuestaJSON.rates[valor]}<li/>`,
+            ),
           );
         });
         vaciarLisVacias();
@@ -110,36 +111,38 @@ function mostrarCuadroComparativoPorCalendario() {
   }
 }
 
-const $valorCalendario = $("#buscar-por-fecha");
-$valorCalendario.on("click", mostrarCuadroComparativoPorCalendario);
+const $valorCalendario = $('#buscar-por-fecha');
+$valorCalendario.on('click', mostrarCuadroComparativoPorCalendario);
 
 function validarCalendario(calendario, titulo) {
   const fechaElegida = new Date(calendario);
   const fechaActual = new Date();
-  const fechaMinima = new Date("1999", "01", "04");
+  const fechaMinima = new Date('1999', '01', '04');
 
   if (fechaElegida < fechaMinima) {
-    $("#calendario").addClass("error");
+    $('#calendario').addClass('error');
     if (titulo) {
-      titulo.text("");
+      titulo.text('');
     }
     return false;
-  } else if (isNaN(fechaElegida)) {
-    $("#calendario").addClass("error");
-    if (titulo) {
-      titulo.text("");
-    }
-    return false;
-  } else if (fechaElegida > fechaActual) {
-    $("#calendario").addClass("error");
-    if (titulo) {
-      titulo.text("");
-    }
-    return false;
-  } else {
-    if ($("#calendario").hasClass("error")) {
-      $("#calendario").removeClass("error");
-    }
   }
+  if (isNaN(fechaElegida)) {
+    $('#calendario').addClass('error');
+    if (titulo) {
+      titulo.text('');
+    }
+    return false;
+  }
+  if (fechaElegida > fechaActual) {
+    $('#calendario').addClass('error');
+    if (titulo) {
+      titulo.text('');
+    }
+    return false;
+  }
+  if ($('#calendario').hasClass('error')) {
+    $('#calendario').removeClass('error');
+  }
+
   return true;
 }

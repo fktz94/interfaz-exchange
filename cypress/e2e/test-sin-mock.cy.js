@@ -30,10 +30,14 @@ describe('home', () => {
       .click()
       .getByData('titulo-tablero')
       .should('be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
       .should('be.visible')
       .get('li')
-      .should('have.length', 30);
+      .should('have.length', 15)
+      .getByData('lista-de-conversiones-2')
+      .should('be.visible')
+      .get('li')
+      .should('have.length', 15);
   });
 
   it('se asegura que devuelva los valores por calendario', () => {
@@ -45,9 +49,14 @@ describe('home', () => {
       .click()
       .getByData('titulo-tablero')
       .should('be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
       .should('be.visible')
-      .get('li');
+      .get('li')
+      .should('have.length', 15)
+      .getByData('lista-de-conversiones-2')
+      .should('be.visible')
+      .get('li')
+      .should('have.length', 15);
   });
 
   it('se asegura que devuelva error por una fecha invalida', () => {
@@ -61,7 +70,9 @@ describe('home', () => {
       .should('have.class', 'error')
       .getByData('titulo-tablero')
       .should('not.be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
+      .should('not.be.visible')
+      .getByData('lista-de-conversiones-2')
       .should('not.be.visible');
   });
 
@@ -75,7 +86,9 @@ describe('home', () => {
       .should('have.class', 'error')
       .getByData('titulo-tablero')
       .should('not.be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
+      .should('not.be.visible')
+      .getByData('lista-de-conversiones-2')
       .should('not.be.visible');
   });
 

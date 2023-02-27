@@ -2,7 +2,7 @@
 
 const LINK = 'http://127.0.0.1:8080';
 
-describe('testeo con mock', () => {
+describe('testeo con mockeos', () => {
   beforeEach(() => {
     cy.visit(LINK);
   });
@@ -38,10 +38,14 @@ describe('testeo con mock', () => {
       .click()
       .getByData('titulo-tablero')
       .should('be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
       .should('be.visible')
       .get('li')
-      .should('have.length', 30);
+      .should('have.length', 15)
+      .getByData('lista-de-conversiones-2')
+      .should('be.visible')
+      .get('li')
+      .should('have.length', 15);
   });
 
   it('se asegura que devuelva los valores por calendario', () => {
@@ -57,9 +61,14 @@ describe('testeo con mock', () => {
       .click()
       .getByData('titulo-tablero')
       .should('be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
       .should('be.visible')
-      .get('li');
+      .get('li')
+      .should('have.length', 15)
+      .getByData('lista-de-conversiones-2')
+      .should('be.visible')
+      .get('li')
+      .should('have.length', 15);
   });
 
   it('se asegura que devuelva error por una fecha invalida', () => {
@@ -73,7 +82,9 @@ describe('testeo con mock', () => {
       .should('have.class', 'error')
       .getByData('titulo-tablero')
       .should('not.be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
+      .should('not.be.visible')
+      .getByData('lista-de-conversiones-2')
       .should('not.be.visible');
   });
 
@@ -87,7 +98,9 @@ describe('testeo con mock', () => {
       .should('have.class', 'error')
       .getByData('titulo-tablero')
       .should('not.be.visible')
-      .getByData('lista-de-conversiones')
+      .getByData('lista-de-conversiones-1')
+      .should('not.be.visible')
+      .getByData('lista-de-conversiones-2')
       .should('not.be.visible');
   });
 

@@ -4,7 +4,8 @@
   "description": "interfaz para intercambio de divisas usando una API",
   "main": "index.html",
   "scripts": {
-    "test": "jest",
+    "test": "jest --collect-coverage",
+    "test:dev": "jest --watch",
     "test:cypress": "cypress run",
     "test:cypress:dev": "cypress open",
     "test:ui": "run-p serve test:cypress",

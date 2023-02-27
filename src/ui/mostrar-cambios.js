@@ -3,7 +3,7 @@
 // Mismo problema que con las option en las currencies
 
 function vaciarLisVacias() {
-  const $divisas = $('#lista-de-conversiones li');
+  const $divisas = $('#lista-de-conversiones ul li');
   $divisas.each((i, divisa) => {
     if (divisa.innerText.length === 0) {
       divisa.remove();
@@ -31,7 +31,7 @@ export function escribirTitulo(texto) {
 }
 
 export function textoCargando(texto) {
-  const $listadoDeConversiones = $('#lista-de-conversiones');
+  const $listadoDeConversiones = $('#lista-de-conversiones span');
   $listadoDeConversiones[0].innerHTML = texto;
 }
 
@@ -57,10 +57,16 @@ export function listarCambios(divisaElegida, actualizarCalendario) {
 
   textoCargando('');
 
+  const CANTIDAD_DE_MONEDAS = Object.keys(cambios).length;
+  const $listadoDeConversiones = $('#lista-de-conversiones-1');
+
   Object.keys(cambios).forEach((valor) => {
-    $('#lista-de-conversiones').append(
-      `<li class="mt-4 text-left text-blue-900"><strong>${valor}:</strong> ${cambios[valor]}<li/>`,
-    );
+    const cambio = `<li class="mt-4 text-left text-blue-900"><strong>${valor}:</strong> ${cambios[valor]}<li/>`;
+    if ($listadoDeConversiones[0].childElementCount < CANTIDAD_DE_MONEDAS) {
+      $('#lista-de-conversiones-1').append(cambio);
+    } else {
+      $('#lista-de-conversiones-2').append(cambio);
+    }
   });
 
   vaciarLisVacias();

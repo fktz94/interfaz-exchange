@@ -1,49 +1,52 @@
 import listarMonedas from './ui/listado-monedas.js';
-import { traerCambios, traerMonedas } from './llamar-api.js';
+import { cargarCambios, cargarMonedas } from './servicios/exchange.js';
 import {
   obtenerDivisaElegida,
-  listarCambiosDeHoy,
+  listarCambios,
   escribirTitulo,
   limpiarListadoDeConversiones,
+  textoCargando,
+  borrarErrorCalendario,
 } from './ui/mostrar-cambios.js';
 import {
   actualizarCalendario,
   validarCalendario,
   obtenerFechaElegida,
-} from './ui/validar-calendario.js';
-
-async function listarLasOpcionesDeMonedas() {
-  const monedas = await traerMonedas();
-  listarMonedas(monedas);
-}
-
-// async function obtenerCambiosDeHoy(divisaElegida) {
-//   const cambiosDeHoy = await traerCambios(divisaElegida);
-//   listarCambiosDeHoy(cambiosDeHoy);
-// }
+} from './ui/calendario.js';
 
 async function obtenerCambios(divisaElegida, fechaElegida = 'latest') {
   limpiarListadoDeConversiones();
   if (fechaElegida === 'latest') {
-    const cambiosHoy = await traerCambios(divisaElegida, fechaElegida);
-    listarCambiosDeHoy(cambiosHoy);
-  } else if (validarCalendario(fechaElegida, escribirTitulo)) {
-    const cambiosHistoricos = await traerCambios(divisaElegida, fechaElegida);
-    listarCambiosDeHoy(cambiosHistoricos);
+    const cambiosHoy = await cargarCambios(divisaElegida, fechaElegida);
+    listarCambios(cambiosHoy, actualizarCalendario());
+  } else if (validarCalendario(fechaElegida, escribirTitulo, textoCargando)) {
+    const cambiosHistoricos = await cargarCambios(divisaElegida, fechaElegida);
+    listarCambios(cambiosHistoricos, actualizarCalendario());
   }
 }
 
-async function iniciar() {
+async function listarLasOpcionesDeMonedas() {
+  const monedas = await cargarMonedas();
+  listarMonedas(monedas);
+}
+
+function cargarPagina() {
   actualizarCalendario();
   listarLasOpcionesDeMonedas();
+
   const $botonBuscarHoy = $('#valor-hoy');
   const $botonBuscarPorFecha = $('#buscar-por-fecha');
   $botonBuscarHoy.on('click', () => {
+    borrarErrorCalendario();
+    textoCargando('Cargando...');
     obtenerCambios(obtenerDivisaElegida());
   });
-  $botonBuscarPorFecha.on('click', () =>
-    obtenerCambios(obtenerDivisaElegida(), obtenerFechaElegida()),
-  );
+  $botonBuscarPorFecha.on('click', () => {
+    textoCargando('Cargando...');
+    obtenerCambios(obtenerDivisaElegida(), obtenerFechaElegida());
+  });
 }
 
-iniciar();
+export default function iniciar() {
+  cargarPagina();
+}

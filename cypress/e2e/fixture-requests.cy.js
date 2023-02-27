@@ -2,7 +2,7 @@
 
 const LINK = 'http://127.0.0.1:8080';
 
-describe('home', () => {
+describe('testeo con mock', () => {
   beforeEach(() => {
     cy.visit(LINK);
   });
@@ -18,14 +18,22 @@ describe('home', () => {
   });
 
   it('se asegura que cargue todas las divisas', () => {
+    cy.intercept('https://api.frankfurter.app/currencies', {
+      fixture: 'currencies.json',
+    }).as('obtenerCurrencies');
+
     cy.getByData('menu-selector-divisas')
       .find('option')
       .should('have.length', 31);
   });
 
   it('se asegura que devuelva los valores actuales', () => {
+    cy.intercept('https://api.frankfurter.app/latest?from=EUR', {
+      fixture: 'latest.json',
+    }).as('obtenerValorDeHoy');
+
     cy.getByData('menu-selector-divisas')
-      .select(Math.floor(Math.random() * 31))
+      .select(8)
       .getByData('valor-hoy')
       .click()
       .getByData('titulo-tablero')
@@ -37,8 +45,12 @@ describe('home', () => {
   });
 
   it('se asegura que devuelva los valores por calendario', () => {
+    cy.intercept('https://api.frankfurter.app/2019-01-05?from=BRL', {
+      fixture: 'calendario',
+    }).as('obtenerValorPorCalendario');
+
     cy.getByData('menu-selector-divisas')
-      .select(Math.floor(Math.random() * 31))
+      .select(2)
       .getByData('calendario')
       .type('2019-01-05')
       .getByData('buscar-por-fecha')

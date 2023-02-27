@@ -1,6 +1,6 @@
 /// <reference types="jquery" />
 
-import { actualizarCalendario } from './validar-calendario.js';
+// Mismo problema que con las option en las currencies
 
 function vaciarLisVacias() {
   const $divisas = $('#lista-de-conversiones li');
@@ -11,15 +11,17 @@ function vaciarLisVacias() {
   });
 }
 
-export function limpiarListadoDeConversiones() {
-  if ($('#lista-de-conversiones li').length > 0) {
-    $('#lista-de-conversiones li').each((i, li) => li.remove());
+//
+
+export function borrarErrorCalendario() {
+  if ($('#calendario').hasClass('error')) {
+    $('#calendario').removeClass('error');
   }
 }
 
-function borrarErrorCalendario() {
-  if ($('#calendario').hasClass('error')) {
-    $('#calendario').removeClass('error');
+export function limpiarListadoDeConversiones() {
+  if ($('#lista-de-conversiones li').length > 0) {
+    $('#lista-de-conversiones li').each((i, li) => li.remove());
   }
 }
 
@@ -28,28 +30,36 @@ export function escribirTitulo(texto) {
   $titulo.text(texto);
 }
 
+export function textoCargando(texto) {
+  const $listadoDeConversiones = $('#lista-de-conversiones');
+  $listadoDeConversiones[0].innerHTML = texto;
+}
+
 export function obtenerDivisaElegida() {
   const $divisaElegida = $('#menu-selector-divisas').val();
   return $divisaElegida;
 }
 
-export function listarCambiosDeHoy(divisaElegida) {
-  const { base, rates, date } = divisaElegida;
-  if (actualizarCalendario() === date) {
-    borrarErrorCalendario();
-    escribirTitulo(`El valor del '${base}' actual es de:`);
+export function listarCambios(divisaElegida, actualizarCalendario) {
+  const { base: moneda, rates: cambios, date: fecha } = divisaElegida;
+
+  if (actualizarCalendario === fecha) {
+    escribirTitulo(`El valor del '${moneda}' actual es de:`);
   } else {
     escribirTitulo(
-      `El valor del '${base}' el día ${date
+      `El valor del '${moneda}' el día ${fecha
         .split('-')
         .reverse()
         .toString()
         .replaceAll(',', '/')} fue de:`,
     );
   }
-  Object.keys(rates).forEach((valor) => {
+
+  textoCargando('');
+
+  Object.keys(cambios).forEach((valor) => {
     $('#lista-de-conversiones').append(
-      `<li class="mt-4 text-left text-blue-900"><strong>${valor}:</strong> ${rates[valor]}<li/>`,
+      `<li class="mt-4 text-left text-blue-900"><strong>${valor}:</strong> ${cambios[valor]}<li/>`,
     );
   });
 

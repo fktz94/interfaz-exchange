@@ -2,13 +2,18 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "jquery": true
+    "jquery": true,
+    "cypress/globals": true,
+    "jest/globals": true
   },
   "extends": [
     "airbnb-base",
     "prettier",
     "plugin:prettier/recommended",
-    "plugin:jquery/slim"
+    "plugin:jquery/slim",
+    "plugin:cypress/recommended",
+    "plugin:jest/recommended",
+    "plugin:jest/style"
   ],
   "overrides": [],
   "parserOptions": {
@@ -25,5 +30,5 @@
       }
     ]
   },
-  "plugins": ["prettier", "jquery"]
+  "plugins": ["prettier", "jquery", "cypress", "jest"]
 }

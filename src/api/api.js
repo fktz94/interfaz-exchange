@@ -1,7 +1,5 @@
 const LINK = 'https://api.frankfurter.app';
 
-// agregar local server cache y try/catch
-
 export async function traerMonedas() {
   return (await fetch(`${LINK}/currencies`)).json();
 }

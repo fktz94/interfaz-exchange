@@ -7,7 +7,7 @@ export function actualizarCalendario() {
   return fechaActual;
 }
 
-export function validarCalendario(calendario, escribirTitulo) {
+export function validarCalendario(calendario, escribirTitulo, textoCargando) {
   const fechaElegida = new Date(calendario);
   const fechaActual = new Date();
   const fechaMinima = new Date('1999', '01', '04');
@@ -15,10 +15,13 @@ export function validarCalendario(calendario, escribirTitulo) {
   if (
     fechaElegida < fechaMinima ||
     fechaElegida > fechaActual ||
+    // No encontré otra manera de solucionar lo que sigue sin el disable de eslint:
+    // eslint-disable-next-line no-restricted-globals
     isNaN(fechaElegida)
   ) {
     $('#calendario').addClass('error');
     escribirTitulo('');
+    textoCargando('');
     return false;
   }
   if ($('#calendario').hasClass('error')) {

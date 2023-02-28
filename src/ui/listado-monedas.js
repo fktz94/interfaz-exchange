@@ -11,8 +11,6 @@ function vaciarOptionsVacias() {
   });
 }
 
-// crear la class Moneda
-
 function listarReferencias(monedas) {
   Object.keys(monedas).forEach((moneda) => {
     $('#referencias span').append(

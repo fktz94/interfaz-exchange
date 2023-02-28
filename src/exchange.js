@@ -14,7 +14,10 @@ import {
   obtenerFechaElegida,
 } from './ui/calendario.js';
 
-async function obtenerCambios(divisaElegida, fechaElegida = 'latest') {
+async function obtenerCambios(
+  divisaElegida,
+  fechaElegida = actualizarCalendario(),
+) {
   limpiarListadoDeConversiones();
   if (fechaElegida === 'latest') {
     const cambiosHoy = await cargarCambios(divisaElegida, fechaElegida);
@@ -32,6 +35,7 @@ async function listarLasOpcionesDeMonedas() {
 
 function cargarPagina() {
   actualizarCalendario();
+  console.log();
   listarLasOpcionesDeMonedas();
 
   const $botonBuscarHoy = $('#valor-hoy');

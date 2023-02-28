@@ -22,7 +22,7 @@ export function guardarCurrenciesEnLaLocalStorage(currencies) {
 
 export function obtenerCambioDeLaLocalStorage(moneda, fecha) {
   if (moneda === undefined) {
-    throw new Error(`Se necesita una moneda paraencontrar el cambio`);
+    throw new Error(`Se necesita una moneda para encontrar el cambio`);
   }
 
   const cambios = JSON.parse(localStorage.getItem(obtenerId(moneda, fecha)));

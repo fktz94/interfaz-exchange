@@ -5,12 +5,14 @@ import {
   obtenerCambioDeLaLocalStorage,
   obtenerCurrenciesDeLaLocalStorage,
 } from '../storage/exchange.js';
+import mapearCambios from '../mapeador/mapearCambios.js';
 
 export async function cargarCambios(moneda, fecha) {
   try {
     return obtenerCambioDeLaLocalStorage(moneda, fecha);
   } catch (e) {
-    const cambio = await traerCambios(moneda, fecha);
+    const cambioData = await traerCambios(moneda, fecha);
+    const cambio = mapearCambios(cambioData);
     guardarCambioEnLaLocalStorage(moneda, fecha, cambio);
     return cambio;
   }

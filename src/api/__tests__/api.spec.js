@@ -1,3 +1,5 @@
+/// <reference types="Jest" />
+
 import { traerCambios, traerMonedas, LINK } from '../api.js';
 
 beforeEach(() => {
@@ -38,5 +40,6 @@ test('carga los cambios con parametros de moneda y fecha', () => {
 
 test('da error llamando a los cambios sin parametros', async () => {
   await expect(traerCambios()).rejects.toThrow('No se detectó moneda ni fecha');
+
   expect(global.fetch).toHaveBeenCalledTimes(0);
 });

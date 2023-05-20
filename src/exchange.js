@@ -35,7 +35,6 @@ async function listarLasOpcionesDeMonedas() {
 
 function cargarPagina() {
   actualizarCalendario();
-  console.log();
   listarLasOpcionesDeMonedas();
 
   const $botonBuscarHoy = $('#valor-hoy');

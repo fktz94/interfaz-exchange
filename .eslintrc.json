@@ -11,9 +11,9 @@
     "prettier",
     "plugin:prettier/recommended",
     "plugin:jquery/slim",
-    "plugin:cypress/recommended",
-    "plugin:jest/recommended",
-    "plugin:jest/style"
+    "plugin:cypress/recommended"
+    // "plugin:jest/recommended",
+    // "plugin:jest/style"
   ],
   "overrides": [],
   "parserOptions": {

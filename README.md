@@ -4,7 +4,7 @@ Este proyecto es una interfaz que compara los valores de distintas divisas. La i
 
 La **data** traída se mapea _(POO)_ y se almacena en el _Local Storage_.
 
-La aplicación se hizo con **jQuery**.
+La aplicación se estructuró con **HTML**, se programó con **JavaScript** y **jQuery**, y se estilizó con **TailwindCSS**.
 La UI fue testeada con **Cypress** y la funcionalidad con **Jest**.
 La compilación se hizo con **Babel**.
 
